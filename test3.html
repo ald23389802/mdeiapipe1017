@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>線上抽籤</title>
+    <style>
+        body {
+            font-family: "微軟正黑體", sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>線上抽籤</h1>
+        <button onclick="drawLots()">抽籤</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const lots = [
+            "大吉 - 諸事順遂",
+            "中吉 - 平安喜樂",
+            "小吉 - 漸有所成",
+            "吉 - 保持努力",
+            "末吉 - 謹慎行事",
+            "凶 - 不宜冒進"
+        ];
+
+        function drawLots() {
+            const result = lots[Math.floor(Math.random() * lots.length)];
+            document.getElementById('result').textContent = result;
+        }
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神籤抽籤</title>
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+            background-image: linear-gradient(45deg, #f3e7e9 0%, #e3eeff 100%);
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            width: 600px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .fortune-box {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: white;
+        }
+
+        .fortune-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin: 1rem 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .fortune-text.show {
+            opacity: 1;
+        }
+
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .fortune-text {
+                font-size: 1rem;
+            }
+            button {
+                padding: 0.8rem 1.6rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>求籤祈福</h1>
+        <div class="fortune-box">
+            <div class="fortune-text" id="fortuneText"></div>
+        </div>
+        <button onclick="drawFortune()" id="drawButton">抽籤</button>
+    </div>
+
+    <script>
+        const fortunes = [
+            "大吉：萬事如意，心想事成，前途光明。",
+            "中吉：有貴人相助，事業順遂，平安喜樂。",
+            "小吉：平穩前行，細心處事，漸入佳境。",
+            "吉：保持耐心，穩紮穩打，終有所成。",
+            "凶：謹慎行事，避免衝動，轉危為安。",
+            "末吉：雖有波折，但終能化解，保持信心。",
+            "大吉：天時地利人和，諸事皆宜。",
+            "中吉：逢凶化吉，守正待時。",
+            "吉：緣分到時，自然成就。",
+            "小吉：耐心等待，水到渠成。"
+        ];
+
+        let isDrawing = false;
+
+        function drawFortune() {
+            if (isDrawing) return;
+            
+            const button = document.getElementById('drawButton');
+            const fortuneText = document.getElementById('fortuneText');
+            const fortuneBox = document.querySelector('.fortune-box');
+            
+            isDrawing = true;
+            button.disabled = true;
+            fortuneText.classList.remove('show');
+            fortuneBox.classList.add('shake');
+
+            // 模擬抽籤過程
+            setTimeout(() => {
+                const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+                fortuneText.textContent = randomFortune;
+                fortuneText.classList.add('show');
+                fortuneBox.classList.remove('shake');
+                
+                setTimeout(() => {
+                    button.disabled = false;
+                    isDrawing = false;
+                }, 500);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
